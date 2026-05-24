@@ -6,8 +6,8 @@ int main(void)
     int b = 3;
     int c = 2;
     printf("%d\n", a + b > c);
-    printf("%d\n", a > b + c);
-    printf("%d\n", a - b == c);
+    printf("%d\n", (a > b) + c);
+    printf("%d\n", a - (b == c));
 
     printf("%d\n", 1 || 0 && 0);
     printf("%d\n", (1 || 0) && 0);
