@@ -18,20 +18,14 @@ int max(int a, int b) {
     if(a > b) {
         return a;
     }
-    if(a < b) {
-        return b;
-    }
-    return 0;
+    return b;
 }
 
 int min(int a, int b) {
     if(a > b) {
         return b;
     }
-    if(a < b) {
-        return a;
-    }
-    return 0;
+    return a;
 }
 
 int abs_val(int a) {
