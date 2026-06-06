@@ -16,11 +16,6 @@ int mm(int a, int b, int *c, int *d) {
     }
 }
 
-void pv(const int *p) {
-    printf("%d\n", *p);
-    //*p = 100;
-}
-
 int main(void) {
     int q;
     int r;
@@ -31,5 +26,4 @@ int main(void) {
     printf("17 / 5 → 몫 = %d, 나머지 = %d\n", q, r);
     mm(8, 3, &max, &min);
     printf("min = %d, max = %d\n", min, max);
-    pv(&q);
 }
