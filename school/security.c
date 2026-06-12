@@ -1,28 +1,28 @@
 #include <stdio.h>
 
-int deal_meter(char *name, long damage, int *hp) {
+int deal_meter(char *name, long *damage, int *hp) {
     int dmg = damage;
     if (dmg != damage) {
         printf("%s(이)가 !@#$&@#$^의 피해를 입었습니다.\n", name);
         return 1;
     }
-    printf("%s(이)가 %ld의 피해를 입었습니다.\n", name, damage);
-    *hp -= damage;
+    printf("%s(이)가 %ld의 피해를 입었습니다.\n", name, *damage);
+    *hp -= dmg;
     return 0;
 }
 
-int enemy_run(char name[100], char *st_d, int *dmg, int *hp, char st[100]) {
+int enemy_run(char name[100], char st_d[10][100], int *dmg, int *hp, char st[100]) {
     //상태 구현해야함
-    printf("%s(이)가 %ld의 데미지로 공격하였습니다.\n", name, dmg);
+    printf("%s(이)가 %d의 데미지로 공격하였습니다.\n", name, *dmg);
     *hp -= *dmg;
 }
 
-int skill1(char *skill, char *sn) {
+int skill1(char skill[10][100]) {
     int num;
     int i;
     printf("사용할 스킬을 골라주세요.\n");
     for (i = 1; i < 9; i++) {
-        printf("%d-%s", i, sn[i - 1]);
+        printf("%d-%s", i, skill[i - 1]);
     }
     printf("사용할 스킬의 번호 : ");
     scanf("%d", &num);
@@ -30,7 +30,7 @@ int skill1(char *skill, char *sn) {
     return i -1;
 }
 
-int skill2(char *skill) {
+int skill2(char skill[10][100]) {
     int num;
     int i;
     printf("사용할 스킬을 골라주세요.\n");
@@ -57,7 +57,7 @@ int main() {
     int code = 0;
     printf("부곡.io 게임 시작합니다.\n");
     printf("??? : !@#&*의 수치를 입력하라...\n입력 : ");
-    scanf("%ld", &damage_point[4]);
+    scanf("%ld", damage_point[4]);
     printf("잘 알았다.....\n");
     while (1) {
         printf("%s(어쩌면 가장 약한 적)\nhp : %d | dmg : %d\n", enemy, enemy_hp, enemy_dmg);
