@@ -6,15 +6,33 @@ void enter() {
     printf("----------------------------------\n");
 }
 
+int _case(int num, int c) {
+    if (c == 1) {
+        if (!(num >= 1 && num <= 9)) {
+            return 1;
+        }
+    }
+    if (c == 2) {
+        if (!(num >= 1 && num <= 10)) {
+            return 1;
+        }
+    }
+    if (c == 3) {
+        return 1;
+    }
+    return 0;
+}
 
-
-int input() {
+int input(int c) {
     int num;
     while (1) {
         printf("입력 : ");
-        scanf("%d", &num);
-        if (!(num >= 1 && num <= 10)) { //조건에 따라 바뀌는 범위 구현하기
-            printf("\n입력이 잘못되었습니다.\n");
+        if (scanf("%d", &num) != 1) {
+        printf("정수를 입력하세요\n");
+        while (getchar() != '\n');
+        }
+        if (_case(num, c)) {
+            printf("입력이 잘못되었습니다.\n");
             continue;
         }
         return num;
@@ -36,14 +54,89 @@ int deal_meter(char *name, long *damage, int *hp) {
     
 }
 
-void enemy_run(char name[100], char st_d[10][100], int *dmg, int *hp, char st[100]) {
-    if (st == st_d[1]) {
+void estfm(int *dmg) {
+    *dmg = 1000;
+}
 
+//{"헤롱헤롱"}, {"흑인의 저주"}, {"잠듦"}, {"무기력"}, {""}, {""}, {""}, {""}, {""}, {"데미지 선택"}
+void enemy_run(char name[100], char st_d[10][100], int *dmg, int *hp, char st[100], int *est) {
+    if (st == st_d[0]) {
+        return;
+    }
+    else if (st == st_d[1]) {
+        return;
+    }
+    else if (st == st_d[2]) {
+        return;
+    }
+    else if (st == st_d[3]) {
+        est[3] = 3;
+    }
+    else if (st == st_d[4]) {
+        
+    }
+    else if (st == st_d[5]) {
+        
+    }
+    else if (st == st_d[6]) {
+        
+    }
+    else if (st == st_d[7]) {
+        
+    }
+    else if (st == st_d[8]) {
+        
+    }
+    else if (st == st_d[9]) {
+        
     }
     printf("%s(이)가 %d의 데미지로 공격하였습니다.\n", name, *dmg);
     *hp -= *dmg;
     if(*hp < 0) {
         *hp = 0;
+    }
+}
+
+void sttr(int *est) {
+    for (int i = 0; i < 10; i++) {
+        if (est[i] > 0) {
+            est[i]--; 
+        }
+    }
+}
+void es(int *est) {
+    if (est[0]) {
+
+    }
+    else if (est[1]) {
+
+    }
+    else if (est[2]) {
+
+    }
+    else if (est[3]) {
+
+    }
+    else if (est[4]) {
+
+    }
+    else if (est[5]) {
+
+    }
+    else if (est[6]) {
+
+    }
+    else if (est[7]) {
+
+    }
+    else if (est[8]) {
+
+    }
+    else if (est[9]) {
+
+    }
+    else {
+
     }
 }
 
@@ -55,8 +148,8 @@ int skill1(char skill[10][100]) {
         printf("%d-%s  ", i, skill[i - 1]);
     }
     printf("\n");
-    printf("사용할 스킬의 번호를 입력해주세요/n");
-    num = input();
+    printf("사용할 스킬의 번호를 입력해주세요\n");
+    num = input(1);
     enter();
     printf("%s(을)를 사용하였습니다.\n", skill[num - 1]);
     return num -1;
@@ -70,8 +163,8 @@ int skill2(char skill[10][100]) {
         printf("%d-%s  ", i, skill[i - 1]);
     }
     printf("\n");
-    printf("사용할 스킬의 번호를 입력해주세요/n");
-    num = input();
+    printf("사용할 스킬의 번호를 입력해주세요\n");
+    num = input(2);
     enter();
     printf("%s(을)를 사용하였습니다.\n", skill[num - 1]);
     return num -1;
@@ -85,13 +178,20 @@ int main() {
     char skill[10][100] = {{"영민이의 치근거리기"}, {"지훈이의 채찍질"}, {"병서의 설교"}, {"동근이의 탯카이"}, {""}, {""}, {""}, {""}, {""}, {"동권이의 비밀수업"}};
     long damage_point[10][1] = {{2000}, {100}, {0}, {0}, {}, {}, {}, {}, {}, {0}};
     char status[10][100] = {{"헤롱헤롱"}, {"흑인의 저주"}, {"잠듦"}, {"무기력"}, {""}, {""}, {""}, {""}, {""}, {"데미지 선택"}};
+    int est[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     char enemy[100] = "샌즈";
     int enemy_hp = 100000;
     int enemy_dmg = 1000;
     int code = 0;
     printf("부곡.io 게임 시작합니다.\n");
-    printf("??? : !@#&*의 수치를 입력하라...\n입력 : ");
-    scanf("%ld", damage_point[9]);
+    printf("??? : !@#&*의 수치를 입력하라...\n");
+    while (1) {
+        printf("입력 : ");
+        if (scanf("%ld", damage_point[9]) != 1) {
+            printf("정수를 입력하세요\n");
+            while (getchar() != '\n');
+        }
+    }
     printf("잘 알았다.....\n");
     printf("----------------------------------\n");
     while (1) {
@@ -109,18 +209,23 @@ int main() {
             printf("게임이 강제로 종료되었습니다.\n");
             break;
         }
-        if (enemy_hp < 0) {
+        if (enemy_hp <= 0) {
             printf("승리하셨습니다.\n");
+            break;
         }
-        enemy_run(enemy, status, &enemy_dmg, &hp, status[skill_num]);
+        es(est);
+        enemy_run(enemy, status, &enemy_dmg, &hp, status[skill_num], est);
         if (low == 0 && hp <= 2000) {
             enter();
             printf("%s(이)가 해금되었습니다.\n", skill[9]);
             low = 1;
         }
-        if (hp < 0) {
+        if (hp <= 0) {
             printf("패배하셨습니다.\n");
+            break;
         }
         enter();
+        estfm(&enemy_dmg);
+        sttr(est);
     }
 }
