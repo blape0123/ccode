@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 //gcc -std=c11 -Wall -Wextra -o security security.c
 
 void enter() {
+    sleep(0.5);
     printf("----------------------------------\n");
 }
 
@@ -62,6 +64,7 @@ void estfm(int *dmg) {
 int enemy_st_run(char name[100], char st_d[10][100], int *dmg, int *hp, char st[100], int *est) {
     int a = rand();//0~32767
     int result = 1;
+    enter();
     if (st == st_d[0] || est[0] > 0) {
         if (est[0] <= 0) {
             est[0] = 3;
@@ -76,26 +79,24 @@ int enemy_st_run(char name[100], char st_d[10][100], int *dmg, int *hp, char st[
             }
             result = 0;
         }
-        est--;
+        enter();
     }
-    else if (st == st_d[1] || est[1] > 0) {
+    if (st == st_d[1] || est[1] > 0) {
         if (est[1] <= 0) {
             est[1] = 3;
         }
-        printf("%s(이)가 흑인의 저주 상태에 빠졌습니다.\n", name);
-        printf("%s(이)가 흑인의 저주 상태로 인해 피해를 입었습니다.\n", name);
+        printf("%s(이)가 출혈 상태에 빠졌습니다.\n", name);
+        printf("%s(이)가 출혈 상태로 인해 피해를 입었습니다.\n", name);
         printf("%s(이)가 %d의 피해를 입었습니다.\n", name, (int)(*dmg / 2));
         *hp -= (int)(*dmg / 2);
         if(*hp < 0) {
             *hp = 0;
         }
-        est--;
-        return 1;
-        
+        enter();
     }
-    else if (st == st_d[2] || est[2] > 0) {
-        if (est[2] <= 0) {
-            est[2] = 1;
+    if (st == st_d[2] || est[2] > 0) {
+        if (est[2] <= 1) {
+            est[2] = 2;
         }
         printf("%s(이)가 잠듦 상태에 빠졌습니다.\n", name);
         if (a % 2 == 0) {
@@ -104,39 +105,41 @@ int enemy_st_run(char name[100], char st_d[10][100], int *dmg, int *hp, char st[
         }
         else {
             printf("%s(이)가 잠에서 깨어나지 못하였습니다.\n", name);
+            result = 0;
         }
+        enter();
     }
-    else if (st == st_d[3] || est[3] > 0) {
+    if (st == st_d[3] || est[3] > 0) {
         if (est[3] <= 0) {
             est[3] = 3;
         }
         printf("%s(이)가 무기력 상태에 빠졌습니다.\n", name);
         printf("%s(이)가 무기력 상태로 인해 공격력이 감소하였습니다.\n", name);
         *dmg /= 2;
-        est--;
+        enter();
     }
-    else if (st == st_d[4] && est[4] > 0) {
-        
+    if (st == st_d[4] && est[4] > 0) {
+        enter();
     }
-    else if (st == st_d[5] && est[5] > 0) {
-        
+    if (st == st_d[5] && est[5] > 0) {
+        enter();
     }
-    else if (st == st_d[6] && est[6] > 0) {
-        
+    if (st == st_d[6] && est[6] > 0) {
+        enter();
     }
-    else if (st == st_d[7] && est[7] > 0) {
-        
+    if (st == st_d[7] && est[7] > 0) {
+        enter();
     }
-    else if (st == st_d[8] && est[8] > 0) {
-        
+    if (st == st_d[8] && est[8] > 0) {
+        enter();
     }
-    else if (st == st_d[9] && est[9] > 0) {
-        
+    if (st == st_d[9] && est[9] > 0) {
+        enter();
     }
-    return 1;
+    return result;
 }
 
-//{"헤롱헤롱"}, {"흑인의 저주"}, {"잠듦"}, {"무기력"}, {""}, {""}, {""}, {""}, {""}, {"데미지 선택"}
+//{"헤롱헤롱"}, {"출혈"}, {"잠듦"}, {"무기력"}, {""}, {""}, {""}, {""}, {""}, {"데미지 선택"}
 void enemy_run(char name[100], char st_d[10][100], int *dmg, int *hp, char st[100], int *est) {
     int run = enemy_st_run(name, st_d, dmg, hp, st, est);
     if (run == 1) {
@@ -155,8 +158,12 @@ void sttr(int *est) {
         if (est[i] > 0) {
             est[i]--; 
         }
+        else {
+            est[i] = 0;
+        }
     }
 }
+
 void es(int *est) {
     if (est[0]) {
 
@@ -230,7 +237,7 @@ int main() {
     int skill_num;
     char skill[10][100] = {{"영민이의 치근거리기"}, {"지훈이의 채찍질"}, {"병서의 설교"}, {"동근이의 탯카이"}, {""}, {""}, {""}, {""}, {""}, {"동권이의 비밀수업"}};
     long damage_point[10][1] = {{2000}, {100}, {0}, {0}, {}, {}, {}, {}, {}, {0}};
-    char status[10][100] = {{"헤롱헤롱"}, {"흑인의 저주"}, {"잠듦"}, {"무기력"}, {""}, {""}, {""}, {""}, {""}, {"데미지 선택"}};
+    char status[10][100] = {{"헤롱헤롱"}, {"출혈"}, {"잠듦"}, {"무기력"}, {""}, {""}, {""}, {""}, {""}, {"데미지 선택"}};
     int est[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     char enemy[100] = "샌즈";
     int enemy_hp = 100000;
