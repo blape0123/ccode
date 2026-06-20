@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-//gcc -std=c11 -Wall -Wextra -o security security.c
+//gcc -std=c11 -Wall -Wextra -o security security.c <- 실행 명령어
 
 void enter() {
     sleep(0.5);
