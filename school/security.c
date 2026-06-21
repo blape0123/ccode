@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-//gcc -std=c11 -Wall -Wextra -o security security.c <- 실행 명령어
+//    gcc -std=c11 -Wall -Wextra -o security security.c    <- 실행 파일 생성 명령어
+//    ./security                                           <- 실행 명령어
 
 void enter() {
     sleep(0.5);
@@ -250,6 +251,7 @@ int main() {
         if (scanf("%ld", damage_point[9]) != 1) {
             printf("정수를 입력하세요\n");
             while (getchar() != '\n');
+            continue;
         }
         break;
     }
