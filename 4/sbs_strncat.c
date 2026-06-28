@@ -1,8 +1,11 @@
 #include "libsbs.h"
 
 char *sbs_strncat(char *dst, const char *src, size_t n) {
-    size_t dl = sbs_strlen(dst);
+    size_t dl = 0;
     size_t i = 0;
+    while(dst[dl]) {
+        dl++;
+    }
     while (i < n && src[i])
     {
         dst[dl + i] = src[i];
