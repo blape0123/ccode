@@ -1,9 +1,3 @@
-스며드는 혼탁의 문장 
-버릇없는 광기의 그릇
-들끓으며 부정하고 저릿하며 깜빡대어
-잠을 해방하노라
-파행하는 철의 왕녀
-끊임없이 자괴하는 진흙 인형
-결합하라 반발하라
-땅을 메워 자신의 무력함을 알라
-파괴술 제 90 흑관
+C is fun. Searching text is a core skill.
+A search function finds a needle in a haystack.
+This file is the haystack for your search program.

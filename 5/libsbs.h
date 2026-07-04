@@ -32,5 +32,9 @@ char *sbs_strncat(char *dst, const char *src, size_t n);
 int sbs_strcmp(const char *s1, const char *s2);
 int		sbs_strcasecmp(const char *s1, const char *s2);
 int		sbs_strncasecmp(const char *s1, const char *s2, size_t n);
+char *sbs_strchr(const char *s, char c);
+char *sbs_strrchr(char *s, char c);
+char *sbs_strnstr(const char *b, const char *s, size_t n);
+
 
 #endif

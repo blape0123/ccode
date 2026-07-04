@@ -1,6 +1,6 @@
 #include "libsbs.h"
 
-char *sbs_strchr(char *s, char c) {
+char *sbs_strrchr(char *s, char c) {
     size_t i = 0;
 
     while(s[i]) {
