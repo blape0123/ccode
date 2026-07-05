@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-//    gcc -std=c11 -Wall -Wextra -o security security.c    <- 실행 파일 생성 명령어
-//    ./security                                           <- 실행 명령어
+//    gcc -std=c11 -Wall -Wextra -o security security.c && ./security   <- 실행 파일 생성 및 실행 명령어
 
 void enter() {
     sleep(0.5);
