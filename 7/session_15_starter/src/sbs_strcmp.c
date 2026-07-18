@@ -1,4 +1,5 @@
 #include "libsbs.h"
+#include <stddef.h>
 
 /*
  * 두 문자열을 끝까지 비교한다 (길이 제한 없음).

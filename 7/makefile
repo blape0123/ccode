@@ -1,2 +1,5 @@
-run: a.c
-	gcc -Wall -Wextra -Werror a.c -o run 
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
