@@ -1,4 +1,5 @@
-#include "libsbs.h"
+# include "libsbs.h"
+# include <stddef.h>
 
 size_t sbs_strlen(const char *s)
 {
