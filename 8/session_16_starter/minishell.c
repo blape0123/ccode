@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "libsbs.h"
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 /*
  * minishell (16차시 종합 프로젝트) — 스켈레톤
@@ -11,6 +14,51 @@
  */
 
 #define BUF_SIZE 1024
+
+static void builtin_pwd(void) {
+	char cwd[BUF_SIZE];
+
+	if(getcwd(cwd, sizeof(cwd)) == NULL) {
+		printf("pwd:현재 디렉토리를 가져오지 못했습니다.");
+		return;
+	}
+	printf("%s\n", cwd);
+}
+
+static void builtin_mkdir(char **args) {
+	size_t i = 1;
+
+	if(args[1] == NULL) {
+		printf("인자가 필요합니다.\n");
+		return;
+	}
+	while (args[i]) {
+		if (mkdir(args[1], 0777) != 0) {
+    	    perror("mkdir: 실패했습니다.\n");
+    	}
+		i++;
+	}
+}
+
+static void builtin_cd(char **args) {
+	const char *path;
+
+	if(args[1] == NULL) {
+		path = getenv("HOME");
+		if(path == NULL) {
+			printf("cd: HOME 경로를 가져오지 못했습니다.\n");
+			return;
+		}
+	}
+	else {
+		path = args[1];
+	}
+	if(chdir(path) != 0) {
+		printf("이동할 수 없습니다.\n");
+		return;
+	}
+	printf("%s로 이동하였습니다.\n", path);
+}
 
 static void	strip_newline(char *line)
 {
@@ -101,6 +149,12 @@ static int	run_command(char **args)
         builtin_len(args);
     else if (sbs_strcmp(args[0], "help") == 0)
         builtin_help();
+	else if (sbs_strcmp(args[0], "cd") == 0)
+        builtin_cd(args);
+    else if (sbs_strcmp(args[0], "pwd") == 0)
+        builtin_pwd();
+	else if (sbs_strcmp(args[0], "mkdir") == 0)
+        builtin_mkdir(args);
     else
         printf("minishell: %s: command not found\n", args[0]);
     return (0);
@@ -108,6 +162,7 @@ static int	run_command(char **args)
 
 int	main(void)
 {
+	char cwd[BUF_SIZE];
 	char	line[BUF_SIZE];
 	char	**args;
 	int		done;
@@ -115,7 +170,8 @@ int	main(void)
 	done = 0;
 	while (!done)
 	{
-		printf("minishell$ ");
+		getcwd(cwd, sizeof(cwd));
+		printf("minishell(%s) $ ", cwd);
 		fflush(stdout);
 		if (fgets(line, BUF_SIZE, stdin) == NULL)
 		{
